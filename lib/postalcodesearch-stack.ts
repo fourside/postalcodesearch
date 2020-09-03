@@ -9,7 +9,7 @@ export class PostalcodesearchStack extends Stack {
     super(scope, id, props);
 
     const backend = new NodejsFunction(this, "postalcodesearch", {
-      entry: "lambda/index.ts",
+      entry: "lambda/src/index.ts",
       handler: "handler",
       runtime: Runtime.NODEJS_12_X,
       cacheDir: ".parcelCache",
