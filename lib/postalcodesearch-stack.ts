@@ -1,21 +1,26 @@
 import { Stack, StackProps, Construct } from "@aws-cdk/core";
-import { AssetCode, Runtime, Function } from "@aws-cdk/aws-lambda";
+import { Runtime } from "@aws-cdk/aws-lambda";
+import { NodejsFunction } from "@aws-cdk/aws-lambda-nodejs";
 import { RetentionDays } from "@aws-cdk/aws-logs";
-import { LambdaRestApi } from "@aws-cdk/aws-apigateway";
+import { RestApi, LambdaIntegration } from "@aws-cdk/aws-apigateway";
 
 export class PostalcodesearchStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const backend = new Function(this, "postalcodesearch", {
-      code: AssetCode.fromAsset(""),
-      handler: "index.handler",
+    const backend = new NodejsFunction(this, "postalcodesearch", {
+      entry: "lambda/index.ts",
+      handler: "handler",
       runtime: Runtime.NODEJS_12_X,
+      cacheDir: ".parcelCache",
       logRetention: RetentionDays.SIX_MONTHS,
     });
 
-    new LambdaRestApi(this, "postalcodesearchApi", {
-      handler: backend,
-    });
+    const restApi = new RestApi(this, "postalcodesearchApi");
+    const integration = new LambdaIntegration(backend);
+
+    const addresses = restApi.root.addResource("addresses");
+    const zipcode = addresses.addResource("{zipcode}");
+    zipcode.addMethod("GET", integration);
   }
 }
