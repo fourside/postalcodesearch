@@ -8,4 +8,7 @@ node_modules
 cdk.out
 
 # Parcel default cache directory
-.parcel-cache
+.parcelCache
+
+# ts outDir
+.dist
