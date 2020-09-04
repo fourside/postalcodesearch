@@ -15,14 +15,14 @@
     "postdeploy": "ts-node postsetup/setupDynamoDB.ts"
   },
   "devDependencies": {
-    "@aws-cdk/assert": "1.61.1",
+    "@aws-cdk/assert": "1.62.0",
     "@types/jest": "^26.0.10",
     "@types/moji": "^0.5.0",
     "@types/node": "10.17.27",
     "@types/unzipper": "^0.10.3",
     "@typescript-eslint/eslint-plugin": "^4.0.1",
     "@typescript-eslint/parser": "^4.0.1",
-    "aws-cdk": "1.61.1",
+    "aws-cdk": "1.62.0",
     "aws-sdk": "^2.746.0",
     "csv": "^5.3.2",
     "eslint": "^7.8.1",
@@ -40,12 +40,12 @@
     "unzipper": "^0.10.11"
   },
   "dependencies": {
-    "@aws-cdk/aws-apigateway": "^1.61.1",
-    "@aws-cdk/aws-dynamodb": "^1.61.1",
-    "@aws-cdk/aws-lambda": "^1.61.1",
-    "@aws-cdk/aws-lambda-nodejs": "^1.61.1",
-    "@aws-cdk/aws-logs": "^1.61.1",
-    "@aws-cdk/core": "1.61.1",
+    "@aws-cdk/aws-apigateway": "1.62.0",
+    "@aws-cdk/aws-dynamodb": "1.62.0",
+    "@aws-cdk/aws-lambda": "1.62.0",
+    "@aws-cdk/aws-lambda-nodejs": "1.62.0",
+    "@aws-cdk/aws-logs": "1.62.0",
+    "@aws-cdk/core": "1.62.0",
     "source-map-support": "^0.5.16"
   },
   "prettier": {
