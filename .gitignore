@@ -12,3 +12,7 @@ cdk.out
 
 # ts outDir
 .dist
+
+x-ken-all
+*.csv
+*.zip

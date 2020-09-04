@@ -1,0 +1,32 @@
+{
+  "name": "lambda",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "csv": "^5.3.2",
+    "moji": "^0.5.1"
+  },
+  "targets": {
+    "cdk-lambda": {
+      "context": "node",
+      "includeNodeModules": {
+        "aws-sdk": false
+      },
+      "sourceMap": false,
+      "minify": false,
+      "engines": {
+        "node": ">= 12"
+      }
+    }
+  },
+  "devDependencies": {
+    "@types/moji": "^0.5.0"
+  }
+}

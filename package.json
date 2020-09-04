@@ -1,11 +1,12 @@
 {
   "name": "postalcodesearch",
-  "version": "0.1.0",
+  "version": "1.1.0",
   "bin": {
     "postalcodesearch": "bin/postalcodesearch.js"
   },
   "scripts": {
     "build": "tsc",
+    "prebuild": "cd lambda && bash prepare_csv.sh",
     "watch": "tsc -w",
     "test": "jest",
     "cdk": "cdk",
