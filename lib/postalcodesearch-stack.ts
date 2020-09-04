@@ -4,12 +4,13 @@ import { NodejsFunction } from "@aws-cdk/aws-lambda-nodejs";
 import { RetentionDays } from "@aws-cdk/aws-logs";
 import { RestApi, LambdaIntegration } from "@aws-cdk/aws-apigateway";
 import { Table, AttributeType } from "@aws-cdk/aws-dynamodb";
+import { TableName } from "./DynamoDb";
 
 export class PostalcodesearchStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const dynamoDb = new Table(this, "Addresses", {
+    const dynamoDb = new Table(this, TableName, {
       partitionKey: {
         name: "zipcode",
         type: AttributeType.STRING,
