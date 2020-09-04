@@ -1,12 +1,25 @@
-import { Stack, StackProps, Construct } from "@aws-cdk/core";
+import { Stack, StackProps, Construct, RemovalPolicy } from "@aws-cdk/core";
 import { Runtime } from "@aws-cdk/aws-lambda";
 import { NodejsFunction } from "@aws-cdk/aws-lambda-nodejs";
 import { RetentionDays } from "@aws-cdk/aws-logs";
 import { RestApi, LambdaIntegration } from "@aws-cdk/aws-apigateway";
+import { Table, AttributeType } from "@aws-cdk/aws-dynamodb";
 
 export class PostalcodesearchStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
+
+    const dynamoDb = new Table(this, "Addresses", {
+      partitionKey: {
+        name: "zipcode",
+        type: AttributeType.STRING,
+      },
+      sortKey: {
+        name: "address3",
+        type: AttributeType.STRING,
+      },
+      removalPolicy: RemovalPolicy.DESTROY,
+    });
 
     const backend = new NodejsFunction(this, "postalcodesearch", {
       entry: "lambda/src/index.ts",
@@ -15,6 +28,8 @@ export class PostalcodesearchStack extends Stack {
       cacheDir: ".parcelCache",
       logRetention: RetentionDays.SIX_MONTHS,
     });
+
+    dynamoDb.grantReadData(backend);
 
     const restApi = new RestApi(this, "postalcodesearchApi");
     const integration = new LambdaIntegration(backend);
