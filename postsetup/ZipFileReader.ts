@@ -16,7 +16,7 @@ export function findZipFile(zipDir: string): string {
   return zipFile;
 }
 
-export function readZipOfCsv(filePath: string): Promise<CsvData[]> {
+export async function readZipOfCsv(filePath: string): Promise<CsvData[]> {
   const csvParser = parse({ columns: COLUMNS });
   const errorHandler = (err: unknown) => {
     throw err;
@@ -39,9 +39,34 @@ export function readZipOfCsv(filePath: string): Promise<CsvData[]> {
     });
     addresses.push(data);
   });
-  return new Promise((resolve) => {
+  const result = await new Promise<CsvData[]>((resolve) => {
     stream.on("end", () => {
       resolve(addresses);
     });
   });
+  return preprocessAddresses(result);
+}
+
+function preprocessAddresses(addresses: CsvData[]): CsvData[] {
+  return addresses
+    .map((address) => {
+      address["sortkey"] =
+        address.address1 + toStringEvenIfNull(address.address2) + toStringEvenIfNull(address.address3);
+      for (const [key, value] of Object.entries(address)) {
+        if (value === "") {
+          address[key] = null;
+        }
+      }
+      return address;
+    })
+    .filter((address, index, self) => {
+      return self.findIndex((item) => item.zipcode === address.zipcode && item.sortkey === address.sortkey) === index;
+    });
+}
+
+function toStringEvenIfNull(value: string | null) {
+  if (!value) {
+    return "";
+  }
+  return value;
 }

@@ -17,11 +17,12 @@ export const COLUMNS = [
 ];
 
 export type CsvData = {
+  [key: string]: string | null;
   zipcode: string;
   kana1: string;
-  kana2: string;
-  kana3: string;
+  // kana2: string | null;
+  // kana3: string | null;
   address1: string;
-  address2: string;
-  address3: string;
+  // address2: string | null;
+  // address3: string | null;
 };
