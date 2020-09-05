@@ -16,7 +16,7 @@ export class PostalcodesearchStack extends Stack {
         type: AttributeType.STRING,
       },
       sortKey: {
-        name: "address3",
+        name: "sortkey",
         type: AttributeType.STRING,
       },
       removalPolicy: RemovalPolicy.DESTROY,
