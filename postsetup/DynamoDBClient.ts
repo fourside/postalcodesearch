@@ -15,6 +15,9 @@ config.update({
 const client: DocumentClient = new DynamoDB.DocumentClient();
 const dynamoDb: DynamoDB = new DynamoDB();
 
+// requestItems must have length less than or equal to 25
+export const REQUEST_ITEMS_MAX_SIZE = 25;
+
 export function createButchWriteItemInput(tableName: string, addresses: CsvData[]): BatchWriteItemInput {
   const putRequests: WriteRequest[] = addresses.map((address) => {
     return {
