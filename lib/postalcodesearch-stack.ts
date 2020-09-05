@@ -3,7 +3,7 @@ import { Runtime } from "@aws-cdk/aws-lambda";
 import { NodejsFunction } from "@aws-cdk/aws-lambda-nodejs";
 import { RetentionDays } from "@aws-cdk/aws-logs";
 import { RestApi, LambdaIntegration } from "@aws-cdk/aws-apigateway";
-import { Table, AttributeType } from "@aws-cdk/aws-dynamodb";
+import { Table, AttributeType, BillingMode } from "@aws-cdk/aws-dynamodb";
 import { TableName } from "./DynamoDb";
 
 export class PostalcodesearchStack extends Stack {
@@ -20,6 +20,7 @@ export class PostalcodesearchStack extends Stack {
         type: AttributeType.STRING,
       },
       removalPolicy: RemovalPolicy.DESTROY,
+      billingMode: BillingMode.PAY_PER_REQUEST,
     });
 
     const backend = new NodejsFunction(this, "postalcodesearch", {
