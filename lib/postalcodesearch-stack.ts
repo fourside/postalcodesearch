@@ -4,7 +4,7 @@ import { NodejsFunction } from "@aws-cdk/aws-lambda-nodejs";
 import { RetentionDays } from "@aws-cdk/aws-logs";
 import { RestApi, LambdaIntegration } from "@aws-cdk/aws-apigateway";
 import { Table, AttributeType, BillingMode } from "@aws-cdk/aws-dynamodb";
-import { TableName } from "./DynamoDb";
+import { TableName } from "../postsetup/DynamoDb";
 
 export class PostalcodesearchStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {

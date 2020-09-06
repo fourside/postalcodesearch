@@ -7,7 +7,7 @@ import {
   BatchWriteItemOutput,
   TableNameList,
 } from "aws-sdk/clients/dynamodb";
-import { CsvData } from "../lib/KenAllCsv";
+import { CsvData } from "./KenAllCsv";
 
 config.update({
   region: "ap-northeast-1",

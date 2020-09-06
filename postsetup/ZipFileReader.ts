@@ -3,7 +3,7 @@ import * as path from "path";
 import { ParseOne } from "unzipper";
 import { decodeStream } from "iconv-lite";
 import { parse } from "csv";
-import { COLUMNS, CsvData } from "../lib/KenAllCsv";
+import { COLUMNS, CsvData } from "./KenAllCsv";
 import { hankanaToHiragana } from "./hankanaToHiragana";
 
 export function findZipFile(zipDir: string): string {

@@ -1,4 +1,4 @@
-import { TableName } from "../lib/DynamoDb";
+import { TableName } from "./DynamoDb";
 import { PostalcodesearchStack } from "../lib/postalcodesearch-stack";
 import { findZipFile, readZipOfCsv } from "./ZipFileReader";
 import { getTableName, createButchWriteItemInput, batchWrite, REQUEST_ITEMS_MAX_SIZE } from "./DynamoDBClient";
