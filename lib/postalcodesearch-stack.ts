@@ -10,7 +10,7 @@ export class PostalcodesearchStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const dynamoDb = new Table(this, TableName, {
+    const dynamoDbTable = new Table(this, TableName, {
       partitionKey: {
         name: "zipcode",
         type: AttributeType.STRING,
@@ -29,9 +29,12 @@ export class PostalcodesearchStack extends Stack {
       runtime: Runtime.NODEJS_12_X,
       cacheDir: ".parcelCache",
       logRetention: RetentionDays.SIX_MONTHS,
+      environment: {
+        TABLE_NAME: dynamoDbTable.tableName,
+      },
     });
 
-    dynamoDb.grantReadData(backend);
+    dynamoDbTable.grantReadData(backend);
 
     const restApi = new RestApi(this, "postalcodesearchApi");
     const integration = new LambdaIntegration(backend);
