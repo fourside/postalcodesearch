@@ -1,6 +1,4 @@
-import { getTableName, query } from "./DynamoDBClient";
-import { PostalcodesearchStack } from "../../lib/postalcodesearch-stack";
-import { TableName } from "../../lib/DynamoDb";
+import { query } from "./DynamoDBClient";
 
 export type AddressData = {
   zipcode: string;
@@ -13,8 +11,10 @@ export type AddressData = {
 };
 
 export async function findAddresses(zipcode: string): Promise<AddressData[]> {
-  const stackName = PostalcodesearchStack.name;
-  const tableName = await getTableName(stackName, TableName);
+  const tableName = process.env.TABLE_NAME;
+  if (!tableName) {
+    throw new Error("not given tableName");
+  }
   const result = await query(tableName, zipcode);
   return result.Items as AddressData[];
 }
