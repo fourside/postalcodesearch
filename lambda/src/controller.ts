@@ -8,9 +8,7 @@ export async function controller(zipcode: string): Promise<Response> {
     const addresses = await findAddresses(zipcode);
     const response: Response = {
       statusCode: 200,
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: defaultHeaders,
       body: JSON.stringify(addresses),
     };
     return response;
@@ -24,15 +22,20 @@ export async function controller(zipcode: string): Promise<Response> {
     }
     return {
       statusCode,
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: defaultHeaders,
       body: JSON.stringify({
         message,
       }),
     };
   }
 }
+
+const defaultHeaders = {
+  "Content-Type": "application/json",
+  "Access-Control-Allow-Headers": "Content-Type",
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "OPTIONS,GET",
+};
 
 export type Response = {
   statusCode: number;
